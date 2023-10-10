@@ -1,9 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
 import ListEmployeeComponents from './componets/ListEmployeeComponents';
 import Header from './componets/Header';
 import Footer from './componets/Footer';
-import { BrowserRouter as Router,Route, Switch, Routes } from 'react-router-dom';
+import { BrowserRouter as Router,Route, Routes } from 'react-router-dom';
+import CreateEmployeeComponent from './componets/CreateEmployeeComponent';
 
 function App() {
   return (
@@ -12,8 +12,9 @@ function App() {
           <Header />
           <div className="container">
             <Routes> 
-              <Route path='/' element = {<ListEmployeeComponents/>}></Route>
+              <Route path='/' exact element = {<ListEmployeeComponents/>}></Route>
               <Route path='/employees' element = {<ListEmployeeComponents/>}></Route>
+              <Route path='/add-employee' element = {<CreateEmployeeComponent/>}></Route>
             </Routes>
           </div>
           <Footer />
