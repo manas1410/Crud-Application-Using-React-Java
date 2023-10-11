@@ -5,7 +5,7 @@ class EmployeeService{
     getEmployees(){
         return axios.get(Employee_Api_Base_Url);
     }
-    static createEmployee(employee){
+    createEmployee(employee){
         return axios.post(Employee_Api_Base_Url,employee);
     }
 
@@ -15,6 +15,10 @@ class EmployeeService{
 
     updateEmployee(employee,employeeId){
         return axios.put(Employee_Api_Base_Url +"/" +employeeId, employee);
+    }
+
+    deleteEmployee(employeeId){
+        return axios.delete(Employee_Api_Base_Url+"/"+employeeId);
     }
 }
 

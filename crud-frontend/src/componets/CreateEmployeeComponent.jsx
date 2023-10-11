@@ -14,12 +14,12 @@ class CreateEmployeeComponent extends Component {
         this.changeFirstNameHandler =  this.changeFirstNameHandler.bind(this);
         this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
         this.changeEmailIdHandler = this.changeEmailIdHandler.bind(this);
-        this.saveEmployee = this.saveEmployee.bind(this);
+        this.saveOrupdateEmployee = this.saveOrupdateEmployee.bind(this);
         this.cancel = this.cancel.bind(this);
     }
 
     componentDidMount(){
-        if(this.state.id === -1){
+        if(this.state.id === "_add"){
             return
         }else{
         EmployeeService.getEmployeeById(this.state.id).then((res)=>{
@@ -32,11 +32,11 @@ class CreateEmployeeComponent extends Component {
     }
     }
 
-    saveEmployee = (e) => {
+    saveOrupdateEmployee = (e) => {
         e.preventDefault();
         let employee = {firstName: this.state.firstName, lastName:this.state.lastName,emailId: this.state.emailId};
         console.log("employee => "+ JSON.stringify(employee));
-        if(this.state.id === -1){
+        if(this.state.id === "_add"){
             EmployeeService.createEmployee(employee).then(res =>{
                 this.props.navigate("/employees")
             })
@@ -100,7 +100,7 @@ class CreateEmployeeComponent extends Component {
                                             value = {this.state.emailId} onChange={this.changeEmailIdHandler}/>
                                     </div>
 
-                                    <button className='btn btn-success' onClick={this.saveEmployee} > Save </button>
+                                    <button className='btn btn-success' onClick={this.saveOrupdateEmployee} > Save </button>
                                     <button className='btn btn-danger' onClick={this.cancel} style={{marginLeft: "10px"}}>Cancel</button>
                                 </form>
                             </div>
