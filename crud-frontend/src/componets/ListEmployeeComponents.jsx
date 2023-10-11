@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import EmployeeService from '../services/EmployeeService';
 import { Link } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 class ListEmployeeComponents extends Component{
     constructor(props){
@@ -8,12 +9,16 @@ class ListEmployeeComponents extends Component{
         this.state = {
             employees: []
         }
+        this.addEmployee=this.addEmployee.bind(this);
     }
     componentDidMount(){
         EmployeeService.getEmployees().then((res) =>{
             this.setState({employees: res.data});
         }
         );
+    }
+    addEmployee( ){
+        this.props.navigate('/add-employee/-1')
     }
 
     
@@ -22,7 +27,7 @@ class ListEmployeeComponents extends Component{
             <div>
                 <h2 className='text-center'>Employees List</h2>
                 <div className='row'>
-                    <Link to="/add-employee"><button className='btn btn-primary' > Add Employee </button></Link>
+                    <button className='btn btn-primary' onClick={this.addEmployee}> Add Employee </button>
                 </div>
                 <div className='row'>
                     <table className='table table-striped table-bordered'>
@@ -43,6 +48,9 @@ class ListEmployeeComponents extends Component{
                                         <td>{employee.firstName}</td>
                                         <td>{employee.lastName}</td>
                                         <td>{employee.emailId}</td>
+                                        <td>
+                                            <Link to={{pathname:`/add-employee/${employee.id}`}}><button  className='btn btn-info'> Update </button></Link>
+                                        </td>
                                     </tr>
                                 )
                             }
@@ -54,5 +62,9 @@ class ListEmployeeComponents extends Component{
     }
 }
 
+function WithNavigate(props) {
+    let navigate = useNavigate();
+    return <ListEmployeeComponents {...props} navigate={navigate} />
+}
 
-export default ListEmployeeComponents;
+export default WithNavigate;
