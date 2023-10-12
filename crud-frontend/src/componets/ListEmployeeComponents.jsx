@@ -10,6 +10,10 @@ class ListEmployeeComponents extends Component{
             employees: []
         }
         this.deleteEmployee = this.deleteEmployee.bind(this);
+        this.viewEmployee = this.viewEmployee.bind(this);
+    }
+    viewEmployee(id){
+        this.props.navigate(`/view-employee/${id}`);
     }
     deleteEmployee(id){
         EmployeeService.deleteEmployee(id).then(res =>{
@@ -53,6 +57,7 @@ class ListEmployeeComponents extends Component{
                                         <td>
                                             <Link to={{pathname:`/add-employee/${employee.id}`}}><button  className='btn btn-info'> Update </button></Link>
                                             <button onClick={ () => this.deleteEmployee(employee.id)} style={{marginLeft:"10px"}} className='btn btn-danger'> Delete </button>
+                                            <button onClick={ () => this.viewEmployee(employee.id)} style={{marginLeft:"10px"}} className='btn btn-info'> View </button>
                                         </td>
                                     </tr>
                                 )
